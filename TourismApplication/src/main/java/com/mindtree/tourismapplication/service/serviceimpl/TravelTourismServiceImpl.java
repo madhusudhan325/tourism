@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import com.mindtree.tourismapplication.repository.FeedbackRepository;
 import com.mindtree.tourismapplication.repository.HotelRepository;
 import com.mindtree.tourismapplication.repository.StateRepository;
 import com.mindtree.tourismapplication.repository.ToursimRepository;
+import com.mindtree.tourismapplication.service.MailService;
 import com.mindtree.tourismapplication.service.TravelTourismService;
 
 @Service
@@ -37,6 +40,8 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 	private StateRepository stateRepository;
 	@Autowired
 	private ToursimRepository toursimRepository;
+	@Autowired
+	private MailService mailservice;
 
 	@Override
 	public State registerStateToDatabase(State state) {
@@ -102,12 +107,21 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 
 	@Override
 	public List<Hotel> getAllHotelsPresentInThatTourismPlace(int stateId, int tourismId) {
+		double avgRating = 0;
 		List<Hotel> hotels = new ArrayList<Hotel>();
 		for (State state : stateRepository.findAll()) {
 			if (stateId == state.getStateId()) {
 				for (Tourism tourism : state.getTourisms()) {
 					if (tourismId == tourism.getTourismId()) {
+						double rating = 0;
 						for (Hotel hotel : tourism.getHotels()) {
+							int size = hotel.getFeedbacks().size();
+							for (Feedback feedback : hotel.getFeedbacks()) {
+								rating = rating + feedback.getRating();
+							}
+							avgRating = rating / size;
+							hotel.setAvgRating(avgRating);
+							rating = 0;
 							hotels.add(hotel);
 						}
 					}
@@ -136,7 +150,7 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 
 	@Override
 	public List<Customer> updateDateOfJourneyOfCustomer(Customer customer, int bookingPrice, Date checkinDate,
-			Date checkoutDate) {
+			Date checkoutDate) throws MessagingException {
 		List<Customer> customers = new ArrayList<Customer>();
 		Hotel hotel = customer.getHotel();
 		Booking booking = new Booking();
@@ -149,6 +163,7 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 		bookingRepository.save(booking);
 		customerRepository.save(customer);
 		customers.add(customer);
+		mailservice.sendEmailWithAttachment(booking);
 		return customers;
 	}
 
@@ -182,6 +197,32 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 		feedbackRepository.save(feedback2);
 		customerRepository.save(customer);
 
+	}
+
+	@Override
+	public List<Customer> viewHotelBookedByUser(String name) {
+		List<Customer> customers = new ArrayList<Customer>();
+		for (Customer customer : customerRepository.findAll()) {
+			if (name.equalsIgnoreCase(customer.getEmailId())) {
+				customers.add(customer);
+			}
+		}
+		return customers;
+	}
+
+	@Override
+	public Customer updateCustomerDetails(int customerId) {
+
+		return customerRepository.findById(customerId).get();
+	}
+
+	@Override
+	public void updateStrengthOfBranch(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice) {
+		Booking booking = bookingRepository.findById(customer2.getBooking().getBookingId()).get();
+		booking.setCheckinDate(checkinDate);
+		booking.setCheckoutDate(checkoutDate);
+		booking.setBookingPrice(bookingPrice);
+		bookingRepository.save(booking);
 	}
 
 }

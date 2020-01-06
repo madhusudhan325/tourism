@@ -12,7 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<title>Make my trip</title>
+<title>Kalinga Make my trip</title>
 <style>
 * {
 	margin: 0;
@@ -53,7 +53,8 @@
 	<div class="container1">
 		<div class="nav-header">
 			<img alt="" src="/resources/icons8-traveler-100.png" class="img">&emsp13;<label
-				style="font-style: italic; font-size: 40px; font-family: cursive; color: darkorange">make</label><label
+				style="font-style: italic; font-size: 40px; font-family: cursive; color: darkorange">
+				Kalinga make</label><label
 				style="font-style: italic; font-size: 50px; font-family: cursive; color: #4f98ca">MyTrip</label>
 		</div>
 		<div class="form">
@@ -78,10 +79,8 @@
 							placeholder="Password" data-validate="Password is required"
 							required>
 					</div>
-					<br>
-					<input type="checkbox" onclick="myFunction()"><label>&nbsp;Show Password</label>
-					
-					<br>
+					<br> <input type="checkbox" onclick="myFunction()"><label>&nbsp;Show
+						Password</label> <br>
 				</div>
 				<div class="form-group">
 
@@ -100,16 +99,15 @@
 	</div>
 
 	<script>
-	
-	function myFunction() {
-		var x = document.getElementById("password");
-		if (x.type === "password") {
-			x.type = "text";
-		} else {
-			x.type = "password";
+		function myFunction() {
+			var x = document.getElementById("password");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+
 		}
-		
-	}
 		$("input").focus(function() {
 			$(this).css("background-color", "#fab696");
 		});

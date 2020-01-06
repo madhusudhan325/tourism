@@ -3,6 +3,8 @@ package com.mindtree.tourismapplication.controller;
 import java.sql.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ public class TourismAppController {
 	private TravelTourismService travelTourismService;
 	static String name = "";
 	static Customer customer = new Customer();
+	static Customer customer2 = new Customer();
 
 	@GetMapping("/register")
 	public String index0() {
@@ -133,9 +136,9 @@ public class TourismAppController {
 	@RequestMapping("/bookahotel")
 	public String bookAHotelForCustomer(@RequestParam("checkinDate") Date checkinDate,
 			@RequestParam("checkoutDate") Date checkoutDate, @RequestParam("bookingPrice") int bookingPrice,
-			Model model) {
+			Model model) throws MessagingException {
 		List<Customer> customers = travelTourismService.updateDateOfJourneyOfCustomer(customer, bookingPrice,
-				checkinDate, checkoutDate);
+				checkinDate, checkoutDate) ;
 		model.addAttribute("customers", customers);
 		return "bookedpage";
 	}
@@ -156,6 +159,28 @@ public class TourismAppController {
 	@RequestMapping("/feedbackforhotel")
 	public String FeedbackForHotel(String feedback, double rating) {
 		travelTourismService.feedbackAndRatingForHotel(customer, feedback, rating);
+		return "booking";
+	}
+
+	@GetMapping("/viewdata")
+	public String viewHotelDataBookedByUser(Model model) {
+		List<Customer> customers = travelTourismService.viewHotelBookedByUser(name);
+		model.addAttribute("customers", customers);
+		return "view";
+	}
+
+	@GetMapping("/update/{customerId}")
+	public String updateBookingDetails(Model model, @PathVariable int customerId) {
+		Customer customer1 = travelTourismService.updateCustomerDetails(customerId);
+		customer2 = customer1;
+		model.addAttribute("customer", customer);
+		return "update";
+	}
+
+	@RequestMapping("/updatedate")
+	public String updateCheckInAndOutDates(@RequestParam("checkinDate") Date checkinDate,
+			@RequestParam("checkoutDate") Date checkoutDate, @RequestParam("bookingPrice") int bookingPrice) {
+		travelTourismService.updateStrengthOfBranch(customer2, checkinDate, checkoutDate, bookingPrice);
 		return "booking";
 	}
 

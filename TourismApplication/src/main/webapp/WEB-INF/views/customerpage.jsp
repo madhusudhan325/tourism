@@ -113,6 +113,7 @@ body {
 					<tr>
 						<th class="table-success">HOTEL NAME</th>
 						<th class="table-warning">HOTEL PRICE</th>
+						<th class="table-warning">HOTEL RATING</th>
 						<th class="table-danger">BOOK</th>
 						<th class="table-warning">COMMENTS</th>
 					</tr>
@@ -120,6 +121,7 @@ body {
 						<tr class="info">
 							<td>${hotel.hotelName}</td>
 							<td>${hotel.price}</td>
+							<td>${hotel.avgRating}</td>
 							<td><a href="/book/${hotel.hotelId}">Book</a>
 							<td><a href="/view/${hotel.hotelId}">Comments</a>
 						</tr>

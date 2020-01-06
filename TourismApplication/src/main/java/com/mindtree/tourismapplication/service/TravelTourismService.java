@@ -3,6 +3,8 @@ package com.mindtree.tourismapplication.service;
 import java.sql.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.stereotype.Service;
 
 import com.mindtree.tourismapplication.dto.TourismDto;
@@ -34,12 +36,18 @@ public interface TravelTourismService {
 	public Customer bookAHotel(String name, int hotelId);
 
 	public List<Customer> updateDateOfJourneyOfCustomer(Customer customer, int bookingPrice, Date checkinDate,
-			Date checkoutDate);
+			Date checkoutDate)throws MessagingException;
 
 	public List<Feedback> viewCommentsForParticularHotel(int hotelId);
 
 	public Customer commentsAndFeedbackForHotel(int customerId);
 
 	public void feedbackAndRatingForHotel(Customer customer, String feedback, double rating);
+
+	public List<Customer> viewHotelBookedByUser(String name);
+
+	public Customer updateCustomerDetails(int customerId);
+
+	public void updateStrengthOfBranch(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice);
 
 }

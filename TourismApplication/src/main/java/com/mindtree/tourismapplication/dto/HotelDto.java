@@ -6,7 +6,7 @@ public class HotelDto {
 	private int hotelId;
 	private String hotelName;
 	private double price;
-
+	private double avgRating;
 	private List<FeedbackDto> feedbackDtos;
 	private List<CustomerDto> customerDtos;
 	private TourismDto tourismDto;
@@ -17,12 +17,13 @@ public class HotelDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public HotelDto(int hotelId, String hotelName, double price, List<FeedbackDto> feedbackDtos,
+	public HotelDto(int hotelId, String hotelName, double price, double avgRating, List<FeedbackDto> feedbackDtos,
 			List<CustomerDto> customerDtos, TourismDto tourismDto, List<BookingDto> bookingDtos) {
 		super();
 		this.hotelId = hotelId;
 		this.hotelName = hotelName;
 		this.price = price;
+		this.avgRating = avgRating;
 		this.feedbackDtos = feedbackDtos;
 		this.customerDtos = customerDtos;
 		this.tourismDto = tourismDto;
@@ -51,6 +52,14 @@ public class HotelDto {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public double getAvgRating() {
+		return avgRating;
+	}
+
+	public void setAvgRating(double avgRating) {
+		this.avgRating = avgRating;
 	}
 
 	public List<FeedbackDto> getFeedbackDtos() {

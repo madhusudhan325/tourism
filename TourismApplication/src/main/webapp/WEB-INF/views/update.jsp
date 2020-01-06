@@ -63,10 +63,11 @@ body {
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
 			<div class="container">
-				<form action="/bookahotel" method="post"
+				<form action="/updatedate" method="post"
 					onsubmit="return validate()" id="form">
 					<h2>Customer Application</h2>
 					<div class="form-group">
+
 						<label for="checkinDate">CheckInDate :</label> <input type="date"
 							class="form-control item" name="checkinDate" id="checkinDate">
 					</div>
@@ -74,12 +75,12 @@ body {
 						<label>checkoutDate:</label> <input type="date"
 							class="form-control" name="checkoutDate" id="checkoutDate">
 					</div>
-					<<div class="form-group">
+					<div class="form-group">
 						<label for="hobbies">Booking Price :</label><input type="number"
 							class="form-control item" name="bookingPrice" id="bookingPrice">
 					</div>
 					<div>
-						<button type="submit" class="btn-success create button">Book</button>
+						<button type="submit" class="btn-success create button">Update</button>
 					</div>
 				</form>
 			</div>
