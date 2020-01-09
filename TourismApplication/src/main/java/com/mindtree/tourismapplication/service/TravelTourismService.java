@@ -29,14 +29,14 @@ public interface TravelTourismService {
 
 	public Customer registerCustomer(Customer customer);
 
-	public String checkingCustomerDetails(String emailId, String password);
+	public boolean checkingCustomerDetails(String emailId, String password);
 
 	public List<Hotel> getAllHotelsPresentInThatTourismPlace(int stateId, int tourismId);
 
-	public Customer bookAHotel(String name, int hotelId);
+	public Customer bookAHotel(Customer customer, int hotelId);
 
 	public List<Customer> updateDateOfJourneyOfCustomer(Customer customer, int bookingPrice, Date checkinDate,
-			Date checkoutDate)throws MessagingException;
+			Date checkoutDate, int hId) throws MessagingException;
 
 	public List<Feedback> viewCommentsForParticularHotel(int hotelId);
 
@@ -44,10 +44,21 @@ public interface TravelTourismService {
 
 	public void feedbackAndRatingForHotel(Customer customer, String feedback, double rating);
 
-	public List<Customer> viewHotelBookedByUser(String name);
+	public double getTotalPrice(int hId, Date checkinDate, Date checkoutDate);
 
+	public boolean getAllEmails(String emailId);
+	
 	public Customer updateCustomerDetails(int customerId);
 
-	public void updateStrengthOfBranch(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice);
+	public void updateCheckInAndOutDates(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice);
+
+	public List<Customer> viewHotelBookedByUser(String name);
+
+	public double getTotalPrice2(Customer customer2, Date checkinDate, Date checkoutDate);
+
+	public void sendtoservice(Customer customer);
+
+	public Customer getcustomer();
+
 
 }

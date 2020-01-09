@@ -11,24 +11,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-	crossorigin="anonymous"></script>
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-	integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-	crossorigin="anonymous"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-	crossorigin="anonymous"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script
-	src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap"
+	rel="stylesheet">
 <!-- <style>
 body {
 	background-image:
@@ -40,12 +34,30 @@ body {
 }
 </style> -->
 <style>
+body {
+	background-color: #f9f6f7;
+	font-family: 'Titillium Web', sans-serif;
+}
+
+html {
+	font-family: 'Titillium Web', sans-serif;
+}
+
+lable{
+	
+}
+
+th
+{
+	color: #3e206d;
+}
+
 .container {
 	max-width: 800px;
 	padding: 50px 70px;
-	background-color: fuchsia;
+	/* background-color: fuchsia; */
 	border-radius: 10px;
-	opacity: 0.5;
+	opacity: 0.9;
 }
 
 /* html {
@@ -60,32 +72,84 @@ body {
 </head>
 <body>
 	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 			<div class="container">
-				<form action="/updatedate" method="post"
-					onsubmit="return validate()" id="form">
-					<h2>Customer Application</h2>
-					<div class="form-group">
+				<form action="/bookahotel" method="post"
+					onsubmit="return validate()" id="form1">
+					<h2
+						style="color: #ad62aa; font-weight: bold; letter-spacing: 2px; text-transform: uppercase;">Book
+						Hotel</h2>
+					<br>
 
-						<label for="checkinDate">CheckInDate :</label> <input type="date"
-							class="form-control item" name="checkinDate" id="checkinDate">
+
+					<div class="form-group row">
+
+
+
+						<div class="col-xs-6">
+
+							&emsp;<label for="checkinDate" style="color: #be9fe1;letter-spacing: 1px;">Check In Date :</label> <input
+								style="width: 300px; margin-right: 15px; margin-left: 10px;"
+								type="date" class="form-control item" name="checkinDate"
+								id="checkinDate">
+
+						</div>
+
+
+						<div class="col-xs-6">
+							<label for="checkoutDate" style="color: #be9fe1;letter-spacing: 1px;">Check Out Date:</label> <input style="width: 300px;"
+								type="date" class="form-control item" name="checkoutDate"
+								id="checkoutDate">
+						</div>
+
+
 					</div>
+
 					<div class="form-group">
-						<label>checkoutDate:</label> <input type="date"
-							class="form-control" name="checkoutDate" id="checkoutDate">
-					</div>
-					<div class="form-group">
-						<label for="hobbies">Booking Price :</label><input type="number"
+						<label for="bookingPrice" style="color: #be9fe1;letter-spacing: 1px;"> The Booking Price For Selected
+							Duration Is :</label><input type="number" style="width: 612px;"
 							class="form-control item" name="bookingPrice" id="bookingPrice">
 					</div>
+					<br>
+
 					<div>
-						<button type="submit" class="btn-success create button">Update</button>
+						<button id="button1" style="width: 100px; margin-right: 10px;"
+							type="submit" class="btn btn-success">Update</button>
+							
+							<button class="btn btn-dark"><a href="/loginpage2" style="text-decoration: none;color: white;">Back</a></button>
+						<!-- <a href="/">Back To Home Page</a> -->
 					</div>
 				</form>
 			</div>
 		</div>
-		<div class="col-md-4"></div>
+		<div class="col-md-2"></div>
 	</div>
+
+
+
+	<script type="text/javascript">
+		/* $(document).ready(function() 
+				{ */
+		$('#button1').click(function() {
+			//$('#form1').hide()				
+		});
+		$('#checkoutDate').change(
+				function() {
+					var checkinDate = $('#checkinDate').val();
+					var checkoutDate = $(this).val();
+					$.ajax({
+						type : 'GET',
+						url : window.location.origin + '/rest/getTotalPrice2/'
+								+ checkinDate + '/' + checkoutDate,
+						success : function(result) {
+
+							console.log(result)
+							$('#bookingPrice').val(result);
+						}
+					})
+				});
+		/* }); */
+	</script>
 </body>
 </html>

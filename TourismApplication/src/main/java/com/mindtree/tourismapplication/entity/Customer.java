@@ -9,11 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
+	private String roles;
+	private boolean active;
 	private String firstName;
 	private String lastName;
 	private Date dob;
@@ -26,38 +30,20 @@ public class Customer {
 	private String password;
 	private String confirmPassword;
 	@OneToOne
+	@JsonIgnore
 	private Booking booking;
 	@OneToOne
+	@JsonIgnore
 	private Feedback feedback;
 	@ManyToOne
+	@JsonIgnore
 	private Hotel hotel;
 	@ManyToOne
+	@JsonIgnore
 	private Tourism tourism;
 
 	public Customer() {
 		super();
-	}
-
-	public Customer(int customerId, String firstName, String lastName, Date dob, float age, String foodType,
-			String hoobies, String gender, String emailId, String phoneNo, String password, String confirmPassword,
-			Booking booking, Feedback feedback, Hotel hotel, Tourism tourism) {
-		super();
-		this.customerId = customerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dob = dob;
-		this.age = age;
-		this.foodType = foodType;
-		this.hoobies = hoobies;
-		this.gender = gender;
-		this.emailId = emailId;
-		this.phoneNo = phoneNo;
-		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.booking = booking;
-		this.feedback = feedback;
-		this.hotel = hotel;
-		this.tourism = tourism;
 	}
 
 	public int getCustomerId() {
@@ -66,6 +52,22 @@ public class Customer {
 
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+
+	public String getRoles() {
+		return roles;
+	}
+
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public String getFirstName() {
@@ -187,4 +189,30 @@ public class Customer {
 	public void setTourism(Tourism tourism) {
 		this.tourism = tourism;
 	}
+
+	public Customer(int customerId, String roles, boolean active, String firstName, String lastName, Date dob,
+			float age, String foodType, String hoobies, String gender, String emailId, String phoneNo, String password,
+			String confirmPassword, Booking booking, Feedback feedback, Hotel hotel, Tourism tourism) {
+		super();
+		this.customerId = customerId;
+		this.roles = roles;
+		this.active = active;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dob = dob;
+		this.age = age;
+		this.foodType = foodType;
+		this.hoobies = hoobies;
+		this.gender = gender;
+		this.emailId = emailId;
+		this.phoneNo = phoneNo;
+		this.password = password;
+		this.confirmPassword = confirmPassword;
+		this.booking = booking;
+		this.feedback = feedback;
+		this.hotel = hotel;
+		this.tourism = tourism;
+	}
+
+	
 }

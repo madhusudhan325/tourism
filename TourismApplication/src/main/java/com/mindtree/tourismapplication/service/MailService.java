@@ -9,5 +9,4 @@ import com.mindtree.tourismapplication.entity.Booking;
 @Service
 public interface MailService {
 	public void sendEmailWithAttachment(Booking booking) throws MessagingException;
-
 }

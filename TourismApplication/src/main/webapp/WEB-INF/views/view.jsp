@@ -17,6 +17,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
 
 <!-- <style>
 body {
@@ -29,8 +32,18 @@ body {
 }
 </style> -->
 <style>
+
+body {
+	background-color: #f9f6f7;
+	font-family: 'Titillium Web', sans-serif;
+}
+html {
+			font-family: 'Titillium Web', sans-serif;
+		}
 .container {
-	max-width: 800px;
+	max-width: 500px;
+	margin-top:8%;
+	margin-left:15%;
 	padding: 50px 70px;
 	background-color: transparent;
 	border-radius: 10px;
@@ -40,17 +53,19 @@ body {
 
 </head>
 <body>
+<div class="container">
 	<div class="row">
-		<div class="container">
-			<table class="table-active" border="2" width="70%" cellpadding="2">
+		<h3 style="color: #ad62aa; font-weight: bold;letter-spacing: 2px;">The BOOKED DETAILS :</h3><br><br><br><br>
+			<table class="table table-hover" width="70%"
+				cellpadding="2">
 				<tr>
-					<th class="table-success">CUSTOMER NAME</th>
-					<th class="table-warning">HOTEL NAME</th>
-					<th class="table-warning">TOURISM NAME</th>
-					<th class="table-danger">BOOK PRICE</th>
-					<th class="table-warning">CHECKOUTDATE</th>
-					<th class="table-warning">CHECKINDATE</th>
-					<th class="table-warning">UPDATE</th>
+					<th>CUSTOMER NAME</th>
+					<th>HOTEL NAME</th>
+					<th>TOURISM NAME</th>
+					<th>BOOK PRICE</th>
+					<th>CHECKOUTDATE</th>
+					<th>CHECKINDATE</th>
+					<th>UPDATE</th>
 				</tr>
 				<c:forEach var="customer" items="${customers}">
 					<tr class="info">
@@ -65,6 +80,7 @@ body {
 
 				</c:forEach>
 			</table>
+			<button class="btn btn-dark"><a href="/loginpage2" style="text-decoration: none;color: white;">Back</a></button>
 		</div>
 	</div>
 </body>

@@ -17,6 +17,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap"
+	rel="stylesheet">
 
 <!-- <style>
 body {
@@ -31,10 +36,22 @@ body {
 <style>
 .container {
 	max-width: 800px;
+	margin-top:2%;
+	margin-left:15%;
 	padding: 50px 70px;
 	background-color: transparent;
 	border-radius: 10px;
 	opacity: 0.9;
+}
+
+body {
+	background-color: #f9f6f7;
+	font-family: 'Titillium Web', sans-serif;
+	padding-top: 30px;
+}
+
+html {
+	font-family: 'Titillium Web', sans-serif;
 }
 </style>
 
@@ -42,10 +59,12 @@ body {
 <body>
 	<div class="row">
 		<div class="container">
-			<table class="table-active" border="2" width="70%" cellpadding="2">
+		<h3 style="color: #ad62aa; font-weight: bold;letter-spacing: 2px;">The REVIEWS FOR SELECTED HOTEL :</h3><br><br>
+			<table class="table table-hover" border="2" width="70%"
+				cellpadding="2">
 				<tr>
-					<th class="table-success">COMMENTS</th>
-					<th class="table-warning">RATING</th>
+					<th>COMMENTS</th>
+					<th>RATING</th>
 				</tr>
 				<c:forEach var="hotel" items="${feedbacks}">
 					<tr class="info">
@@ -55,7 +74,9 @@ body {
 
 				</c:forEach>
 			</table>
+			<button class="btn btn-dark"><a href="/loginpage2" style="text-decoration: none;color: white;">Back</a></button>
 
 		</div>
+	</div>
 </body>
 </html>

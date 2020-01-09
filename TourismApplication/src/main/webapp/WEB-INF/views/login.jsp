@@ -12,7 +12,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<title>Kalinga Make my trip</title>
+<title>Make my trip</title>
 <style>
 * {
 	margin: 0;
@@ -53,20 +53,20 @@
 	<div class="container1">
 		<div class="nav-header">
 			<img alt="" src="/resources/icons8-traveler-100.png" class="img">&emsp13;<label
-				style="font-style: italic; font-size: 40px; font-family: cursive; color: darkorange">
-				Kalinga make</label><label
-				style="font-style: italic; font-size: 50px; font-family: cursive; color: #4f98ca">MyTrip</label>
+				style="font-style: italic; font-size: 40px; font-family: cursive; color: darkorange">book</label><label
+				style="font-style: italic; font-size: 50px; font-family: cursive; color: #4f98ca">YourHotel</label>
 		</div>
 		<div class="form">
-			<form action="" method="post">
-
+			<form action="/login" method="post">
+				<p style="text-align: center;">Login To Kalinga Account</p>
 				<div class="form-group">
+				<div id = "message1" style="color: red;">${message}</div>
 					<div class="input-group">
 
 						<span class="input-group-addon"><i
 							class="glyphicon glyphicon-user"></i></span> <input
 							data-toggle="tooltip" title="Enter your emailId" id="emailId"
-							type="text" class="form-control" name="emailId"
+							type="text" class="form-control" name="username"
 							placeholder="Customer Email" data-validate="EmailId is required"
 							required>
 					</div>
@@ -79,14 +79,16 @@
 							placeholder="Password" data-validate="Password is required"
 							required>
 					</div>
-					<br> <input type="checkbox" onclick="myFunction()"><label>&nbsp;Show
-						Password</label> <br>
+					<br>
+					<input type="checkbox" onclick="myFunction()"><label>&nbsp;Show Password</label>
+					
+					<br>
 				</div>
 				<div class="form-group">
 
 					<button style="background-color: black" type="submit"
 						class="btn btn-primary btn-block"
-						onclick="form.action='/loginpage'">Log in</button>
+						type="submit">Log in</button>
 					<!-- <button id="submit1" type="reset" class="btn btn-primary btn-block"
                         onclick="form.action='/validateCustomer'">Reset</button> -->
 
@@ -99,19 +101,22 @@
 	</div>
 
 	<script>
-		function myFunction() {
-			var x = document.getElementById("password");
-			if (x.type === "password") {
-				x.type = "text";
-			} else {
-				x.type = "password";
-			}
-
+	
+	function myFunction() {
+		var x = document.getElementById("password");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
 		}
+		
+	}
 		$("input").focus(function() {
+			$("#message1").hide();
 			$(this).css("background-color", "#fab696");
 		});
 		$("input").blur(function() {
+			$("#message1").hide();
 			$(this).css("background-color", "white");
 		});
 	</script>

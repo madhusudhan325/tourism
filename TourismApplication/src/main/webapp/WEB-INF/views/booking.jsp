@@ -9,7 +9,5 @@
 <body>
 	<a href="/form5">Booking Hotel</a>
 	<br>
-	<a href="/viewdata">View Hotel Booking</a>
-	<br>
 </body>
 </html>

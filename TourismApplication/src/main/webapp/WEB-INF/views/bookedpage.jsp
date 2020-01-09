@@ -42,15 +42,15 @@ body {
 <body>
 	<div class="row">
 		<div class="container">
-			<table class="table-active" border="2" width="70%" cellpadding="2">
+			<table class="table table-dark table-striped" border="2" width="70%" cellpadding="2">
 				<tr>
-					<th class="table-success">CUSTOMER NAME</th>
-					<th class="table-warning">HOTEL NAME</th>
-					<th class="table-warning">TOURISM NAME</th>
-					<th class="table-danger">BOOK PRICE</th>
-					<th class="table-warning">CHECKOUTDATE</th>
-					<th class="table-warning">CHECKINDATE</th>
-					<th class="table-warning">FEEDBACK</th>
+					<th>CUSTOMER NAME</th>
+					<th>HOTEL NAME</th>
+					<th>TOURISM NAME</th>
+					<th>BOOK PRICE</th>
+					<th>CHECKOUTDATE</th>
+					<th>CHECKINDATE</th>
+					<th>FEEDBACK</th>
 				</tr>
 				<c:forEach var="customer" items="${customers}">
 					<tr class="info">

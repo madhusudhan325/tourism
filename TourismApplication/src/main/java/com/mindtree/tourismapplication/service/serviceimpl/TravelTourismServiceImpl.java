@@ -27,7 +27,7 @@ import com.mindtree.tourismapplication.service.TravelTourismService;
 
 @Service
 public class TravelTourismServiceImpl implements TravelTourismService {
-
+	Customer customerr;
 	@Autowired
 	private BookingRepository bookingRepository;
 	@Autowired
@@ -40,6 +40,7 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 	private StateRepository stateRepository;
 	@Autowired
 	private ToursimRepository toursimRepository;
+
 	@Autowired
 	private MailService mailservice;
 
@@ -88,17 +89,18 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 
 	@Override
 	public Customer registerCustomer(Customer customer) {
-
+		customer.setActive(true);
+		customer.setRoles("ROLE_USER");
 		return customerRepository.save(customer);
 	}
 
 	@Override
-	public String checkingCustomerDetails(String emailId, String password) {
-		String login = null;
+	public boolean checkingCustomerDetails(String emailId, String password) {
+		boolean login = false;
 		for (Customer customer : customerRepository.findAll()) {
 			if (emailId.equals(customer.getEmailId())) {
 				if (password.equals(customer.getPassword())) {
-					login = "logined";
+					login = true;
 				}
 			}
 		}
@@ -107,21 +109,12 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 
 	@Override
 	public List<Hotel> getAllHotelsPresentInThatTourismPlace(int stateId, int tourismId) {
-		double avgRating = 0;
 		List<Hotel> hotels = new ArrayList<Hotel>();
 		for (State state : stateRepository.findAll()) {
 			if (stateId == state.getStateId()) {
 				for (Tourism tourism : state.getTourisms()) {
 					if (tourismId == tourism.getTourismId()) {
-						double rating = 0;
 						for (Hotel hotel : tourism.getHotels()) {
-							int size = hotel.getFeedbacks().size();
-							for (Feedback feedback : hotel.getFeedbacks()) {
-								rating = rating + feedback.getRating();
-							}
-							avgRating = rating / size;
-							hotel.setAvgRating(avgRating);
-							rating = 0;
 							hotels.add(hotel);
 						}
 					}
@@ -132,27 +125,23 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 	}
 
 	@Override
-	public Customer bookAHotel(String name, int hotelId) {
+	public Customer bookAHotel(Customer customer, int hotelId) {
 		Hotel hotel = hotelRepository.findById(hotelId).get();
 		Tourism tourism = hotel.getTourism();
 		// Tourism tourism = toursimRepository.findById(tourismId).get();
-		Customer customer = new Customer();
-		for (Customer customer2 : customerRepository.findAll()) {
-			if (name.equals(customer2.getEmailId())) {
-				// customer2.setHotel(hotel);
-				customer = customer2;
-			}
-		}
-		customer.setTourism(tourism);
-		customer.setHotel(hotel);
-		return customer;
+		Customer customer2 = customerRepository.findById(customer.getCustomerId()).get();
+		
+		customer2.setTourism(tourism);
+		customer2.setHotel(hotel);
+		customerRepository.save(customer2);
+		return customer2;
 	}
 
 	@Override
 	public List<Customer> updateDateOfJourneyOfCustomer(Customer customer, int bookingPrice, Date checkinDate,
-			Date checkoutDate) throws MessagingException {
+			Date checkoutDate, int hId) throws MessagingException {
 		List<Customer> customers = new ArrayList<Customer>();
-		Hotel hotel = customer.getHotel();
+		Hotel hotel = hotelRepository.findById(hId).get();
 		Booking booking = new Booking();
 		booking.setCheckinDate(checkinDate);
 		booking.setCheckoutDate(checkoutDate);
@@ -163,6 +152,7 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 		bookingRepository.save(booking);
 		customerRepository.save(customer);
 		customers.add(customer);
+
 		mailservice.sendEmailWithAttachment(booking);
 		return customers;
 	}
@@ -200,6 +190,35 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 	}
 
 	@Override
+	public double getTotalPrice(int hId, Date checkinDate, Date checkoutDate) {
+		Hotel hotel = hotelRepository.findById(hId).get();
+
+		int daysdiff = 0;
+		long diff = checkoutDate.getTime() - checkinDate.getTime();
+		long diffdays = diff / (24 * 60 * 60 * 1000) + 1;
+		daysdiff = (int) diffdays;
+
+		return daysdiff * hotel.getPrice();
+	}
+
+	@Override
+	public boolean getAllEmails(String emailId) {
+		for (Customer customer : customerRepository.findAll()) {
+			if (customer.getEmailId().equals(emailId)) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+	@Override
+	public Customer updateCustomerDetails(int customerId) {
+
+		return customerRepository.findById(customerId).get();
+	}
+
+	@Override
 	public List<Customer> viewHotelBookedByUser(String name) {
 		List<Customer> customers = new ArrayList<Customer>();
 		for (Customer customer : customerRepository.findAll()) {
@@ -211,18 +230,37 @@ public class TravelTourismServiceImpl implements TravelTourismService {
 	}
 
 	@Override
-	public Customer updateCustomerDetails(int customerId) {
+	public void updateCheckInAndOutDates(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice) {
 
-		return customerRepository.findById(customerId).get();
-	}
-
-	@Override
-	public void updateStrengthOfBranch(Customer customer2, Date checkinDate, Date checkoutDate, int bookingPrice) {
 		Booking booking = bookingRepository.findById(customer2.getBooking().getBookingId()).get();
 		booking.setCheckinDate(checkinDate);
 		booking.setCheckoutDate(checkoutDate);
 		booking.setBookingPrice(bookingPrice);
 		bookingRepository.save(booking);
+	}
+
+	@Override
+	public double getTotalPrice2(Customer customer2, Date checkinDate, Date checkoutDate) {
+		Hotel hotel = hotelRepository.findById(customer2.getHotel().getHotelId()).get();
+
+		int daysdiff = 0;
+		long diff = checkoutDate.getTime() - checkinDate.getTime();
+		long diffdays = diff / (24 * 60 * 60 * 1000) + 1;
+		daysdiff = (int) diffdays;
+
+		return daysdiff * hotel.getPrice();
+	}
+
+	@Override
+	public void sendtoservice(Customer customer) {
+		customerr = customer;
+
+	}
+
+	@Override
+	public Customer getcustomer() {
+
+		return customerr;
 	}
 
 }
